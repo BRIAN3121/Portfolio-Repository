@@ -1,0 +1,106 @@
+1)Assuming you have a table named data_table with a primary key id:
+-- Remove duplicates based on unique column(s)
+
+DELETE FROM data_table
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM data_table
+    GROUP BY column1, column2, column3 -- columns that define duplicates
+);
+
+-------------------------------------------------------------------------------------------------------------------
+2)To handle missing values, you can either delete the rows with missing values or fill them with default values. 
+  Here’s an example of filling missing values:
+
+-- Fill missing values with a default value
+UPDATE data_table
+SET column1 = COALESCE(column1, 'default_value1'),
+    column2 = COALESCE(column2, 'default_value2');
+--------------------------------------------------------------------------------------------------------------------
+3)Standardizing date formats to YYYY-MM-DD and ensuring consistent case for text columns:
+-- Standardize date format
+UPDATE data_table
+SET date_column = STR_TO_DATE(date_column, '%Y-%m-%d');
+
+-- Ensure consistent case for text columns
+UPDATE data_table
+SET text_column = LOWER(text_column); -- or UPPER(text_column) based on requirement
+
+---------------------------------------------------------------------------------------------------------------------
+4)Assuming a normal distribution for numerical data, you can remove outliers based on a standard deviation threshold:
+-- Calculate mean and standard deviation
+SELECT AVG(numeric_column) AS mean, STDDEV(numeric_column) AS stddev
+INTO @mean, @stddev
+FROM data_table;
+
+-- Remove outliers beyond 3 standard deviations
+DELETE FROM data_table
+WHERE numeric_column NOT BETWEEN (@mean - 3 * @stddev) AND (@mean + 3 * @stddev);
+
+--------------------------------------------------------------------------------------------------------------------
+5)Add a new column and modify an existing column:
+-- Add a new column
+ALTER TABLE data_table
+ADD new_column VARCHAR(255);
+
+-- Modify an existing column
+ALTER TABLE data_table
+MODIFY existing_column INT NOT NULL;
+
+--------------------------------------------------------------------------------------------------------------------
+6)To delete a table and remove unused columns:
+-- Delete an unused column
+ALTER TABLE data_table
+DROP COLUMN unused_column;
+
+-- Delete the table if no longer needed
+DROP TABLE IF EXISTS unused_table;
+
+------------------------------------------------------------------------------------------------------------------
+**Complete Script
+
+-- Remove duplicates based on unique column(s)
+DELETE FROM data_table
+WHERE id NOT IN (
+    SELECT MIN(id)
+    FROM data_table
+    GROUP BY column1, column2, column3
+);
+
+-- Fill missing values with a default value
+UPDATE data_table
+SET column1 = COALESCE(column1, 'default_value1'),
+    column2 = COALESCE(column2, 'default_value2');
+
+-- Standardize date format
+UPDATE data_table
+SET date_column = STR_TO_DATE(date_column, '%Y-%m-%d');
+
+-- Ensure consistent case for text columns
+UPDATE data_table
+SET text_column = LOWER(text_column);
+
+-- Calculate mean and standard deviation
+SELECT AVG(numeric_column) AS mean, STDDEV(numeric_column) AS stddev
+INTO @mean, @stddev
+FROM data_table;
+
+-- Remove outliers beyond 3 standard deviations
+DELETE FROM data_table
+WHERE numeric_column NOT BETWEEN (@mean - 3 * @stddev) AND (@mean + 3 * @stddev);
+
+-- Add a new column
+ALTER TABLE data_table
+ADD new_column VARCHAR(255);
+
+-- Modify an existing column
+ALTER TABLE data_table
+MODIFY existing_column INT NOT NULL;
+
+-- Remove unused column
+ALTER TABLE data_table
+DROP COLUMN unused_column;
+
+-- Delete an unused table
+DROP TABLE IF EXISTS unused_table;
+
