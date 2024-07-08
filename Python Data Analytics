@@ -1,0 +1,69 @@
+
+Python Codes in Data Analytics
+
+Pandas,Matplotlib,Seaborn,arrays 
+
+CODES
+
+A.Data Cleaning 
+
+1.#READ CSV=>refers to the process of importing or opening a CSV (comma-separated values)
+# file in a program or script.
+import pandas as pd
+x=pd.read_csv('C:\\Users\\BRIAN\\Desktop\\data.py\\data12.csv')
+print(x.to_string())"""
+
+
+2.#Read CSV=> refers to the process of reading information from a CSV (Comma-Separated Values) file
+#so the purpose of to_string() is to print the entire DataFrame
+"""import pandas as pd
+
+df = pd.read_csv('data.csv')
+
+print(df)
+
+
+3.#Replace Only For Specified Columns:
+
+import pandas as pd
+df = pd.read_csv('data.csv')
+df["Calories"].fillna(134, inplace = True)
+
+print(df.to_string())
+
+#This operation inserts 130 in empty cells in the "Calories" column (row 18 and 28).
+
+4.#Dropna()=>is a function used to remove empty cells
+import pandas as pd
+x=pd.read_csv('C:\\Users\\BRIAN\\Desktop\\data.py\\data12.csv')
+x.dropna(inplace=True)
+
+print(x.to_string())
+
+5.
+
+B.Matplotlib,Arrays
+
+1.
+*Creating bar graph using Matplotlib and arrays as python libraries
+
+import matplotlib.pyplot as plt
+import numpy as np
+x=np.array(['A','B','C','D'])
+y=np.array([10,20,30,40])
+plt.bar(x, y,)
+plt.xlabel('time')
+plt.suptitle('the rise')
+plt.show()
+
+
+2.
+import matplotlib.pyplot as plt
+
+import numpy as np           
+x=np.random.randint(0,10,size=(10))
+y=np.random.randint(0,10,size=(10))
+color=np.random.randint(10,size=(10))
+plt.scatter(x, y, c=color)
+plt.colorbar()
+plt.show()
