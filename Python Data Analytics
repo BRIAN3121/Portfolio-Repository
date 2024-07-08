@@ -1,5 +1,7 @@
-
 Python Codes in Data Analytics
+
+**I created Python code for data analytics using Pandas, Matplotlib, and Seaborn. This includes reading and cleaning CSV files,
+replacing values, and removing empty cells. Additionally, I visualized data using bar graphs and scatter plots with Matplotlib.
 
 Pandas,Matplotlib,Seaborn,arrays 
 
