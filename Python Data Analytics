@@ -71,3 +71,5 @@ color=np.random.randint(10,size=(10))
 plt.scatter(x, y, c=color)
 plt.colorbar()
 plt.show()
+
+**NOTE** Not finished.........To be continued..............
